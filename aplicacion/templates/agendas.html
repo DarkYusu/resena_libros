@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Agendas Disponibles{% endblock %}
+
+{% block content %}
+<h2>Agendas Disponibles</h2>
+
+<form method="get" class="mb-4">
+    <div class="row">
+        <div class="col-md-4">
+            <label for="centro_medico" class="form-label">Centro Médico</label>
+            <select id="centro_medico" name="centro_medico" class="form-select">
+                <option value="">Todos</option>
+                {% for centro in centros_medicos %}
+                    <option value="{{ centro.id }}" {% if centro.id|stringformat:"s" == request.GET.centro_medico %}selected{% endif %}>
+                        {{ centro.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="especialista" class="form-label">Especialista</label>
+            <select id="especialista" name="especialista" class="form-select">
+                <option value="">Todos</option>
+                {% for especialista in especialistas %}
+                    <option value="{{ especialista.id }}" {% if especialista.id|stringformat:"s" == request.GET.especialista %}selected{% endif %}>
+                        {{ especialista.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="fecha" class="form-label">Fecha Disponible</label>
+            <input type="date" id="fecha" name="fecha" class="form-control" value="{{ request.GET.fecha }}">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
+</form>
+
+{% for agenda in agendas %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ agenda.especialista.nombre }}</h5>
+            <p class="card-text">{{ agenda.centro_medico.nombre }}</p>
+            <p class="card-text">
+                <small class="text-muted">{{ agenda.fecha_disponible }} - {{ agenda.hora_disponible }}</small>
+                {% if agenda.id in citas_ocupadas %}
+                    <span class="badge bg-danger">Hora ya tomada</span>
+                {% endif %}
+            </p>
+            <a href="{% url 'detalle_agenda' agenda.id %}" class="btn btn-primary">Ver detalles</a>
+        </div>
+    </div>
+{% endfor %}
+
+<!-- Paginación -->
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <!-- Paginación dinámica aquí -->
+    </ul>
+</nav>
+
+{% endblock %}

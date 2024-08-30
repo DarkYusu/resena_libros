@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">Bienvenido a Citas Médicas</h1>
+    <p class="lead">Reserva tu cita con los mejores especialistas de forma rápida y sencilla.</p>
+    <hr class="my-4">
+    <p>Accede o regístrate para empezar.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Iniciar Sesión</a>
+    <a class="btn btn-secondary btn-lg" href="{% url 'registro' %}" role="button">Registrarse</a>
+</div>
+{% endblock %}

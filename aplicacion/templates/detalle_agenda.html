@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalles de la Agenda{% endblock %}
+
+{% block content %}
+<h2>Detalles de la Agenda</h2>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ agenda.especialista.nombre }}</h5>
+        <p class="card-text"><strong>Centro Médico:</strong> {{ agenda.centro_medico.nombre }}</p>
+        <p class="card-text"><strong>Fecha:</strong> {{ agenda.fecha_disponible }}</p>
+        <p class="card-text"><strong>Hora:</strong> {{ agenda.hora_disponible }}</p>
+
+        {% if user.is_authenticated and user.perfil.tipo_usuario == 'paciente' %}
+            <!-- Mostrar mensajes -->
+            {% if messages %}
+                <div class="alert alert-info">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <h3>Solicitar Cita</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Confirmar Cita</button>
+            </form>
+        {% else %}
+            <p>Inicie sesión como paciente para solicitar una cita.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

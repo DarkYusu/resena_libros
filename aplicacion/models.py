@@ -38,3 +38,14 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Perfil(models.Model):
+    USUARIO_TIPOS = (
+        ('administrador', 'Administrador'),
+        ('paciente', 'Paciente'),
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    tipo_usuario = models.CharField(max_length=20, choices=USUARIO_TIPOS, default='paciente')
+
+    def __str__(self):
+        return f'{self.user.username} - {self.tipo_usuario}'

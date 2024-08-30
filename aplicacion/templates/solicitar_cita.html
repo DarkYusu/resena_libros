@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Solicitar Cita{% endblock %}
+
+{% block content %}
+<h2>Confirmar Solicitud de Cita</h2>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{ agenda.especialista.nombre }}</h5>
+        <p class="card-text"><strong>Centro Médico:</strong> {{ agenda.centromedico.nombre }}</p>
+        <p class="card-text"><strong>Fecha:</strong> {{ agenda.fecha_disponible }}</p>
+        <p class="card-text"><strong>Hora:</strong> {{ agenda.hora_disponible }}</p>
+    </div>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success">Confirmar Cita</button>
+    <a href="{% url 'agendas' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

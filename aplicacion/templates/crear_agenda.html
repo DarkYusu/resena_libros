@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Nueva Agenda{% endblock %}
+
+{% block content %}
+<h2>Crear Nueva Agenda</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="fecha_disponible" class="form-label">Fecha Disponible</label>
+        <input type="date" class="form-control" id="fecha_disponible" name="fecha_disponible" required>
+    </div>
+    <div class="mb-3">
+        <label for="hora_disponible" class="form-label">Hora Disponible</label>
+        <input type="time" class="form-control" id="hora_disponible" name="hora_disponible" required>
+    </div>
+    <div class="mb-3">
+        <label for="especialista" class="form-label">Especialista</label>
+        <select id="especialista" name="especialista" class="form-select" required>
+            <option value="">Seleccione un Especialista</option>
+            {% for especialista in especialistas %}
+                <option value="{{ especialista.id }}">{{ especialista.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="centro_medico" class="form-label">Centro Médico</label>
+        <select id="centro_medico" name="centro_medico" class="form-select" required>
+            <option value="">Seleccione un Centro Médico</option>
+            {% for centro in centros_medicos %}
+                <option value="{{ centro.id }}">{{ centro.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Crear Agenda</button>
+</form>
+{% endblock %}
+
