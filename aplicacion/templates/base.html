@@ -24,10 +24,13 @@
                             <a class="nav-link" href="{% url 'seleccionar_tipo_usuario' %}">Seleccionar Tipo de Usuario</a>
                         </li>
                         {% if user.perfil.tipo_usuario == 'administrador' %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'crear_agenda' %}">Crear Agenda</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'crear_agenda' %}">Crear Agenda</a>
+                        </li>
                         {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ user.username }}</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">{{ user.email }}</a>
                         </li>

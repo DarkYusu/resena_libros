@@ -64,7 +64,7 @@ def registro(request):
 # Vista de logout
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('contacto')
 
 # Vista de agendas (paginación y filtros)
 @login_required
@@ -155,23 +155,5 @@ def seleccionar_tipo_usuario(request):
     return render(request, 'seleccionar_tipo_usuario.html', {'form': form})
 
 def contacto(request):
-    if request.method == 'POST':
-        form = ContactoForm(request.POST)
-        if form.is_valid():
-            nombre = form.cleaned_data['nombre']
-            email = form.cleaned_data['email']
-            mensaje = form.cleaned_data['mensaje']
-            
-            # Enviar correo (asegúrate de configurar el backend de correo en settings.py)
-            send_mail(
-                subject=f"Nuevo mensaje de {nombre}",
-                message=mensaje,
-                from_email=email,
-                recipient_list=[settings.DEFAULT_FROM_EMAIL],
-                fail_silently=False,
-            )
-            return redirect('contacto_exito')  # Redirige a una página de éxito
-    else:
-        form = ContactoForm()
-    
+    form = ContactoForm()
     return render(request, 'contacto.html', {'form': form})
